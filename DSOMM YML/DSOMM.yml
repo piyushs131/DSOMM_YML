@@ -1,0 +1,493 @@
+Matrix :
+  Sub Dimension Filter :
+    - "Build"
+    - "Deployment"
+    - "Patch Management"
+    - "Design"
+    - "Educational and Guidance"
+    - "Process"
+    - "Application Hardening"
+    - "Development and Source Control"
+    - "Infrastructure Hardening"
+    - "Logging"
+    - "Monitoring"
+    - "Application Tests"
+    - "Consolidation"
+    - "Dynamic Depth for Application"
+    - "Dynamic Depth for Infrastructure"
+    - "Static Depth for Application"
+    - "Static Depth for Infrastructure"
+    - "Test-Intensity"
+
+  Activity Tag Filter :
+    - None
+
+  Dimensions : 
+    - Build and Deployment
+    
+  Sub-Dimensions :
+    - Build
+    
+  Level 1 Basics Understanding of Security Practices :
+    Defined Build Process :
+      UUID: f6f7737f-25a9-4317-8de2-09bf59f29b5b
+
+      Description: |
+        Sample evidence as an attribute in the YAML: The build process is defined in REPLACE-ME Pipeline in the folder vars. Projects are using a Jenkinsfile to use the defined process.
+
+      Risk: |
+        Performing builds without a defined process is error-prone; for example, as a result of incorrect security-related configuration.
+
+      Measure: |
+        A well-defined build process lowers the possibility of errors during the build process.
+
+      Difficulty_of_Implementation :
+        - Knowledge: Medium (two disciplines)
+        - Time: High
+        - Resources: Medium
+
+      Usefulness : 
+        - Very High
+
+      Evidence:
+ 
+      Assessment:
+        - Show your build pipeline and an exemplary job (build + test).
+        - Show that every team member has access.
+        - Show that failed jobs are fixed.
+  
+
+      Implementation :
+        CI/CD tools:
+          - Description: CI/CD tools such as Jenkins, GitLab CI, or GitHub Actions.
+          - Tags: ci-cd
+          -  URL: https://martinfowler.com/articles/continuousIntegration.html
+  
+        Container technologies_and_orchestration_like_Docker_Kubernetes:
+          - Description: Container technologies and orchestration like Docker, Kubernetes.
+          - Tags: null
+          -  URL: https://d3fend.mitre.org/dao/artifact/d3f:ContainerOrchestrationSoftware/
+
+        References:
+          - OWASP SAMM VERSION 2
+          - ISO 27001:2017
+          - ISO 27001:2022
+          - OpenCRE
+
+        Implemented_By :
+          - B: false
+          - C: false
+          - Default: false
+
+        Depends_on :
+          - Defined build process
+          - Pinning of artifacts
+          - SBOM of components
+          - Signing of artifacts
+          - Signing of code
+
+        Comments:
+        Tags: none
+
+ 
+  Level 2 Adoption of basic security security practices :
+
+    Building and testing of antifacts in virtual enviroments :
+      UUID: a340f46b-6360-4cb8-847b-a0d3483d09d3
+   
+      Description: |
+        While building and testing artifacts, third party systems, application frameworks and 3rd party libraries are used. These might be malicious as a result of vulnerable libraries or because they are altered during the delivery phase.
+
+      Risk: |
+        While building and testing artifacts, third party systems, application frameworks and 3rd party libraries are used. These might be malicious as a result of vulnerable libraries or because they are altered during the delivery phase.
+      
+      Measure: |
+        Each step during within the build and testing phase is performed in a separate virtual environments, which is destroyed afterward.
+
+      Implementation guide: |
+        Depending on your environment, usage of virtual machines or container technology is a good way. After the build, the filesystem should not be used again in other builds.
+   
+      Difficulty_of_Implementation :
+        - Knowledge: Medium (two disciplines)
+        - Time: High
+        - Resources: Medium
+
+      Usefulness : 
+        - medium
+
+      Evidence:
+ 
+      Assessment:
+      
+      Implementation :
+         CI/CD tools:
+           - Description: CI/CD tools such as Jenkins, GitLab CI, or GitHub Actions.
+           - Tags: ci-cd
+           -  URL: https://martinfowler.com/articles/continuousIntegration.html
+  
+         Container technologies_and_orchestration_like_Docker_Kubernetes:
+           - Description: Container technologies and orchestration like Docker, Kubernetes.
+           - Tags: null
+           -  URL: https://d3fend.mitre.org/dao/artifact/d3f:ContainerOrchestrationSoftware/
+
+      References:
+        - OWASP SAMM VERSION 2
+        - ISO 27001:2017
+        - ISO 27001:2022
+        - OpenCRE
+
+      Implemented_By:
+        - B: false
+        - C: false
+        - Default: false
+
+      Depends_on :
+        - Defined build process
+        - Pinning of artifacts
+        - SBOM of components
+        - Signing of artifacts
+        - Signing of code
+
+      Comments:
+      Tags: none
+
+    Pinning of antifacts :
+   
+      UUID: f3c4971e-9f4d-4e59-8ed0-f0bdb6262477
+   
+      Description: 
+       
+      Risk: |
+        Unauthorized manipulation of artifacts might be difficult to spot. For example, this may result in using images with malicious code. Also, intended major changes, which are automatically used in an image used might break the functionality.
+      
+      Measure: |
+        Pinning of artifacts ensure that changes are performed only when intended
+      
+      Implementation guide: |
+        Pinning artifacts in Dockerfile refers to the practice of using specific, immutable versions of base images and dependencies in your build process. Instead of using the latest tag for your base image, select a specific version or digest. For example, replace FROM node:latest, to FROM node@sha256:abcdef12.
+      
+      Difficulty_of_Implementation :
+        - Knowledge: Medium (two disciplines)
+        - Time: medium
+        - Resources: Medium
+
+      Usefulness : 
+        - High
+
+      Evidence:
+ 
+      Assessment:
+      
+      Implementation :
+        - Tags 
+        - URl 
+        - Description 
+      
+      References:
+        - OWASP SAMM VERSION 2
+        - ISO 27001:2017
+        - ISO 27001:2022
+        - OpenCRE
+
+      Implemented_By:
+        - B: false
+        - C: false
+        - Default: false
+
+      Depends_on :
+       
+      Comments:
+
+      Tags: none
+    
+    Build SBOM of components  :
+      UUID: 2858ac12-0179-40d9-9acf-1b839c030473
+   
+      Description: |
+        SBOM (Software Bill of Materials) is a document that lists all components, libraries, and dependencies used in a software application or container image. Creating an SBOM during the build process can help ensure transparency, security, and license compliance for your application.
+      
+      Risk: |
+        In case a vulnerability of severity high or critical exists, it needs to be known where an artifacts with that vulnerability is deployed with which dependencies.
+     
+      Measure: |
+        Creation of an SBOM of components (e.g. application and container image content) during build.
+     
+      Difficulty_of_Implementation :
+        - Knowledge: Medium (two disciplines)
+        - Time: Medium
+        - Resources: High
+
+      Usefulness : 
+        - High
+
+      Evidence:
+ 
+      Assessment:
+      
+      Implementation :
+        
+      References:
+        - OWASP SAMM VERSION 2
+        - ISO 27001:2017
+        - ISO 27001:2022
+        - OpenCRE
+
+      Implemented_By:
+        - B: false
+        - C: false
+        - Default: false
+
+      Depends_on :
+       
+      Comments:
+      Tags: none
+  
+  Level 3 High adoption of security practices  :
+    Signing of code  :
+      UUID: 9f107927-61e9-4574-85ad-3f2b4bca8665
+   
+      Description  : 
+        
+      Risk: |
+        Execution or usage of malicious code or data e.g. via executables, libraries or container images.
+      Measure: |
+        Digitally signing commits helps to prevent unauthorized manipulation of source code.
+
+
+      Difficulty_of_Implementation :
+        - Knowledge: Medium (two disciplines)
+        - Time: Medium
+        - Resources: Medium
+
+      Usefulness : 
+        - High
+
+      Evidence:
+ 
+      Assessment:
+      
+      Implementation  :
+        Signing of commits  :
+           - Description: Signing of commits in git
+           - Tags: Signing
+           -  URL: https://git-scm.com/book/en/v2/Git-Tools-Signing-Your-Work
+  
+        Enforcement of commit signing  :
+           - Description: Usage of branch protection rules
+           - Tags: Signing
+           -  URL: https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/managing-a-branch-protection-rule
+
+        
+      References:
+        - OWASP SAMM VERSION 2
+        - ISO 27001:2017
+        - ISO 27001:2022
+        - OpenCRE
+
+      Implemented_By:
+        - B: false
+        - C: false
+        - Default: false
+
+      Depends_on :
+       
+      Comments:
+      Tags: none
+  
+  Level 4 very high adoption of security practices  :
+
+  Level 5 Advanced deployment of security practices at scale  :
+    Signing of artifacts  :
+      UUID: 5786959d-0c6f-46a6-8e1c-a32ff1a50222
+   
+      Description  : 
+        
+      Risk: |
+        Execution or usage of malicious code or data e.g. via executables, libraries or container images.
+      Measure: |
+        Digitally signing artifacts for all steps during the build and especially docker images, helps to ensure their integrity and authenticity.
+
+
+      Difficulty_of_Implementation :
+        - Knowledge: Medium (two disciplines)
+        - Time: Medium
+        - Resources: Medium
+
+      Usefulness : 
+        - Very High
+
+      Evidence:
+ 
+      Assessment:
+      
+      Implementation  :
+        Docker Content Trust  :
+           - Description  :
+           - Tags  :
+           -  URL: https://docs.docker.com/engine/security/trust/Your-Work
+  
+        In-toto  :
+           - Description  : 
+           - Tags  :
+           -  URL: https://in-toto.github.io/
+
+        
+      References:
+        - OWASP SAMM VERSION 2
+        - ISO 27001:2017
+        - ISO 27001:2022
+        - OpenCRE
+
+      Implemented_By:
+        - B: false
+        - C: false
+        - Default: false
+
+      Depends_on :
+       
+      Comments:
+      Tags: none
+
+Implementation levels  :
+  Circular-heatmap  :
+    -Build
+    -Deployment
+    -Patch Management
+    -Design
+    -Education and Guidance
+    -Process
+    -Application Hardening
+    -Development and Source Control
+    -Infrastructure Hardening
+    -Logging
+    -Monitoring
+    -Application tests
+    -Consolidation
+    -Dynamic depth for applications
+    -Dynamic depth for infrastructure
+    -Application Static depth for applications
+    -Static depth for infrastructure
+  
+  Team group Filter  :
+    -All
+    -GroupA
+    -GroupB
+    -Groupc
+  
+  Team Filter  :
+    -Default
+    -B
+    -c
+
+Mappings:
+  Dimension  :
+    -Build and Deployment
+  Sub-Dimension  :
+    -Build
+  Activity  : 
+    -Building and testing of artifacts in virtual environments
+  
+  SAMM  :
+    -I-SB-2-A
+      
+  ISO 27001:2017  : 
+    -14.2.6
+     
+  ISO 27001:2022  :
+    -8.31
+
+usage : 
+  pre-requirements :
+    - Pre-requirements
+    - onboard product owner and other managers
+    - get to know security policies
+    - continuosly improve your security belt rank
+    - review security belt activity
+    - utilize pairing when starting an activity
+
+  Dimensions :
+    Implementation :
+      - Example low maturity scenario
+       
+  Culture and Organization :
+    - Design
+    - Example low maturity scenario
+    - Education and Guidance
+
+  Test and Verification :
+    - Example low maturity scenario
+    - Example high maturity scenario
+
+  Build and Deployment :
+    - Example low maturity scenario
+    - Example high maturity scenario
+
+  Information Gathering : 
+    - Example high maturity scenario
+
+Team_List:
+  Default:
+    - B
+    - C
+
+Team_Group:
+  GroupA:
+    - Default
+    - B
+
+  GroupB:
+    - B
+    - C
+
+  GroupC:
+    - Default
+    - C
+
+About_Us:
+  Introduction:
+    - Introduction content...
+
+  Usage:
+    - Usage content goes here...
+
+  Community:
+    - Community content goes here...
+
+  Sides_and_Talks:
+    - Sides and talks content goes here...
+
+  Assessment:
+    - Assessment content goes here...
+
+  Container:
+    - Container content goes here...
+
+  Amazon_EC2_Instance:
+    - Amazon EC2 instance content goes here...
+
+  Tests:
+    - Tests content goes here...
+
+  Credit:
+    - Credit content goes here...
+
+  Back_Links:
+    - Back links content goes here...
+
+  Your_Help_Is_Needed_To_Perform:
+    - Your help is needed to perform content goes here...
+
+  Multilanguage_Support:
+    - Multilanguage support content goes here...
+
+  Sponsors:
+    - Sponsors content goes here...
+
+  Donations:
+    - Donations content goes here...
+
+  License:
+    - License content goes here...
+
+    
+    
